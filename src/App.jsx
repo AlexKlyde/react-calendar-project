@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
-import Clock from './Clock';
+import Header from './components/header/Header.jsx';
+import Calendar from './components/calendar/Calendar.jsx';
+
+import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
+
+import './common.scss';
 
 class App extends Component {
-  state = {
-    visible: true,
-  }
 
-  toggle = () => {
-    this.setState({
-      visible: !this.state.visible,
-    });
-  }
+    state = {
+        weekStartDate: new Date(),
+    }
 
-  render() {
-    return (
-      <>
-        <button onClick={this.toggle}>Toggle</button>
-        {this.state.visible && <Clock location="New York" offset={-5} />}
-        {this.state.visible && <Clock location="Kyiv" offset={2} />}
-        {this.state.visible && <Clock location="London" offset={0} />}
-      </>
-    );
-  }
+    render() {
+        const { weekStartDate } = this.state;
+        const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
+
+        return (<>
+            <Header />
+            <Calendar weekDates={weekDates} />
+        </>)
+    }
 };
 
 export default App;
