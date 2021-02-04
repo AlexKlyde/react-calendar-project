@@ -12,10 +12,10 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
-    handleFetchEvents();
+    fetchEvents();
   }, []);
 
-  const handleFetchEvents = () => {
+  const fetchEvents = () => {
     fetchEventsList()
       .then(events => setEvents(events))
       .catch(error => alert(error.message));
@@ -23,7 +23,7 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
 
   const handleDeleteEvent = id => {
     deleteEvent(id)
-      .then(() => handleFetchEvents())
+      .then(() => fetcheEvents())
       .catch(error => alert(error.message));
   };
 
@@ -39,7 +39,7 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
         </div>
       </section>
       {isModalVisible && (
-        <Modal setModalVisible={setModalVisible} fetchEvents={handleFetchEvents} />
+        <Modal setModalVisible={setModalVisible} fetchEvents={fetchEvents} />
       )}
     </>
   );

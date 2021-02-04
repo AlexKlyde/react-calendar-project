@@ -1,6 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 import PropTypes from 'prop-types';
+import className from 'classnames';
 
 import { days } from '../../utils/dateUtils.js';
 import './navigation.scss';
@@ -10,7 +11,7 @@ const Navigation = ({ weekDates }) => {
     <header className="calendar__header">
       {weekDates.map(dayDate => {
         const isTodayDate = format(dayDate, 'yyyy-MM-dd') === format(new Date(), 'yyyy-MM-dd');
-        const dayClassName = `calendar__day-label day-label ${isTodayDate ? 'today' : ''}`;
+        const dayClassName = className('calendar__day-label', 'day-label', { 'today': isTodayDate });
 
         return (
           <div key={dayDate} className={dayClassName}>
