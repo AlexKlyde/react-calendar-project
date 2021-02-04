@@ -64,6 +64,6 @@ export const deleteEvent = id =>
         dateFrom: new Date(2020, 8, 25, 10, 30),
         dateTo: new Date(2020, 8, 25, 11, 0),
     }
-] */
+]
 
-// export default events;
+export default events; */
