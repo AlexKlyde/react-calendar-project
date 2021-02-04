@@ -3,11 +3,10 @@ import { format } from 'date-fns';
 import PropTypes from 'prop-types';
 
 const HeaderNavigation = ({ todayWeek, prevWeek, nextWeek, weekDates }) => {
-  const currentMonth = format(weekDates[0], 'MMM');
-  const nextMonth = format(weekDates[weekDates.length - 1], 'MMM');
-  const displayCurrentMonth = currentMonth === nextMonth
-    ? currentMonth
-    : `${currentMonth} - ${nextMonth}`;
+  const currentMonth = format(weekDates[0], 'MMMM');
+  const nextMonth = format(weekDates[weekDates.length - 1], 'MMMM');
+  const displayCurrentMonth =
+    currentMonth === nextMonth ? currentMonth : `${currentMonth} - ${nextMonth}`;
 
   return (
     <div className="navigation">

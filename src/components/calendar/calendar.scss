@@ -2,11 +2,13 @@
     display: flex;
     flex-direction: column;
     height: calc(100vh - 60px);
+   
 
     &__header {
         display: flex;
         height: 100px;
         padding-left: 48px;
+        background-color: rgb(249, 250, 252);
     }
 
     &__body {
@@ -23,6 +25,7 @@
     &__time-scale {
         height: 100%;
         width: 48px;
+         background-color: rgb(249, 250, 252);
     }
 
     &__week {
