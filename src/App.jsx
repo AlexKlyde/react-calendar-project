@@ -1,26 +1,37 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
+import { subWeeks, addWeeks } from 'date-fns';
+
 import Header from './components/header/Header.jsx';
 import Calendar from './components/calendar/Calendar.jsx';
-
 import { getWeekStartDate, generateWeekRange } from '../src/utils/dateUtils.js';
-
 import './common.scss';
 
-class App extends Component {
+const App = () => {
+  const [startDateWeek, setStartDateWeek] = useState(new Date());
+  const [isModalVisible, setModalVisible] = useState(false);
 
-    state = {
-        weekStartDate: new Date(),
-    }
+  const handlePrevWeek = () => setStartDateWeek(subWeeks(startDateWeek, 1));
+  const hanldeNextWeek = () => setStartDateWeek(addWeeks(startDateWeek, 1));
+  const handleTodayWeek = () => setStartDateWeek(new Date());
 
-    render() {
-        const { weekStartDate } = this.state;
-        const weekDates = generateWeekRange(getWeekStartDate(weekStartDate));
+  const weekDates = generateWeekRange(getWeekStartDate(startDateWeek));
 
-        return (<>
-            <Header />
-            <Calendar weekDates={weekDates} />
-        </>)
-    }
+  return (
+    <>
+      <Header
+        weekDates={weekDates}
+        setModalVisible={setModalVisible}
+        prevWeek={handlePrevWeek}
+        nextWeek={hanldeNextWeek}
+        todayWeek={handleTodayWeek}
+      />
+      <Calendar
+        weekDates={weekDates}
+        isModalVisible={isModalVisible}
+        setModalVisible={setModalVisible}
+      />
+    </>
+  );
 };
 
 export default App;

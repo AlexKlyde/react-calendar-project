@@ -1,33 +1,54 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
+import Modal from '../modal/Modal';
 import Navigation from './../navigation/Navigation';
 import Week from '../week/Week';
 import Sidebar from '../sidebar/Sidebar';
-import events from '../../gateway/events';
-
+import { fetchEventsList, deleteEvent } from '../../gateway/events';
 import './calendar.scss';
 
-class Calendar extends Component {
+const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
+  const [events, setEvents] = useState([]);
 
-    state = {
-        events,
-    }
+  useEffect(() => {
+    handleFetchEvents();
+  }, []);
 
-    render() {
-        const { weekDates } = this.props;
+  const handleFetchEvents = () => {
+    fetchEventsList()
+      .then(events => setEvents(events))
+      .catch(error => alert(error.message));
+  };
 
-        return (
-            <section className="calendar">
-                <Navigation weekDates={weekDates} />
-                <div className="calendar__body">
-                    <div className="calendar__week-container">
-                        <Sidebar />
-                        <Week weekDates={weekDates} events={this.state.events} />
-                    </div>
-                </div>
-            </section>
-        )
-    }
-}
+  const handleDeleteEvent = id => {
+    deleteEvent(id)
+      .then(() => handleFetchEvents())
+      .catch(error => alert(error.message));
+  };
+
+  return (
+    <>
+      <section className="calendar">
+        <Navigation weekDates={weekDates} />
+        <div className="calendar__body">
+          <div className="calendar__week-container">
+            <Sidebar />
+            <Week weekDates={weekDates} events={events} deleteEvent={handleDeleteEvent} />
+          </div>
+        </div>
+      </section>
+      {isModalVisible && (
+        <Modal setModalVisible={setModalVisible} fetchEvents={handleFetchEvents} />
+      )}
+    </>
+  );
+};
+
+Calendar.propTypes = {
+  weekDates: PropTypes.array.isRequired,
+  isModalVisible: PropTypes.bool,
+  setModalVisible: PropTypes.func.isRequired,
+};
 
 export default Calendar;

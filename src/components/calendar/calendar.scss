@@ -65,6 +65,20 @@
     }
 }
 
+.today .day-label__day-name {
+  color: cornflowerblue;
+}
+
+.today .day-label__day-number {
+  background-color: cornflowerblue;
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  border-radius: 50%;
+  color: white;
+}
+
 .red-line {
     position: absolute;
     width: 100%;
