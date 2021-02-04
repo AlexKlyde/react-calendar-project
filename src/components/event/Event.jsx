@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import './event.scss';
 
-const Event = ({ height, marginTop, id, title, time, deleteEvent }) => {
-  const [isVisibleDeleteBtn, toggleDeleteBtn] = useState(false);
+const Event = ({ height, marginTop, id, title, time, onDeleteEvent }) => {
+  const [isDeleteBtnVisible, setIsDeleteBtnVisible] = useState(false);
 
   const eventStyle = {
     height,
@@ -12,11 +12,15 @@ const Event = ({ height, marginTop, id, title, time, deleteEvent }) => {
   };
 
   return (
-    <div className="event" style={eventStyle} onClick={() => toggleDeleteBtn(!isVisibleDeleteBtn)}>
+    <div
+      className="event"
+      style={eventStyle}
+      onClick={() => setIsDeleteBtnVisible(!isDeleteBtnVisible)}
+    >
       <div className="event__title">{title}</div>
       <div className="event__time">{time}</div>
-      {isVisibleDeleteBtn && (
-        <button className="delete-event-btn" onClick={() => deleteEvent(id)}>
+      {isDeleteBtnVisible && (
+        <button className="delete-event-btn" onClick={() => onDeleteEvent(id)}>
           +
         </button>
       )}
@@ -30,7 +34,7 @@ Event.propTypes = {
   id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   time: PropTypes.string.isRequired,
-  deleteEvent: PropTypes.func.isRequired,
+  onDeleteEvent: PropTypes.func.isRequired,
 };
 
 export default Event;

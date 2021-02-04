@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Day from '../day/Day';
 import './week.scss';
 
-const Week = ({ weekDates, events, deleteEvent }) => {
+const Week = ({ weekDates, events, onDeleteEvent }) => {
   return (
     <div className="calendar__week">
       {weekDates.map(dayStart => {
@@ -20,7 +20,7 @@ const Week = ({ weekDates, events, deleteEvent }) => {
             dataDay={dayStart.getDate()}
             dayStart={dayStart}
             dayEvents={dayEvents}
-            deleteEvent={deleteEvent}
+            onDeleteEvent={onDeleteEvent}
           />
         );
       })}
@@ -31,7 +31,7 @@ const Week = ({ weekDates, events, deleteEvent }) => {
 Week.propTypes = {
   weekDates: PropTypes.array.isRequired,
   events: PropTypes.array.isRequired,
-  deleteEvent: PropTypes.func.isRequired,
+  onDeleteEvent: PropTypes.func.isRequired,
 };
 
 export default Week;

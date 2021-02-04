@@ -22,9 +22,7 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
   };
 
   const handleDeleteEvent = id => {
-    deleteEvent(id)
-      .then(() => fetcheEvents())
-      .catch(error => alert(error.message));
+    deleteEvent(id).then(() => fetcheEvents());
   };
 
   return (
@@ -34,13 +32,11 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
         <div className="calendar__body">
           <div className="calendar__week-container">
             <Sidebar />
-            <Week weekDates={weekDates} events={events} deleteEvent={handleDeleteEvent} />
+            <Week weekDates={weekDates} events={events} onDeleteEvent={handleDeleteEvent} />
           </div>
         </div>
       </section>
-      {isModalVisible && (
-        <Modal setModalVisible={setModalVisible} fetchEvents={fetchEvents} />
-      )}
+      {isModalVisible && <Modal setModalVisible={setModalVisible} fetchEvents={fetchEvents} />}
     </>
   );
 };

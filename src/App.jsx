@@ -21,9 +21,9 @@ const App = () => {
       <Header
         weekDates={weekDates}
         setModalVisible={setModalVisible}
-        prevWeek={handlePrevWeek}
-        nextWeek={hanldeNextWeek}
-        todayWeek={handleTodayWeek}
+        onPrevWeek={handlePrevWeek}
+        onNextWeek={hanldeNextWeek}
+        onTodayWeek={handleTodayWeek}
       />
       <Calendar
         weekDates={weekDates}

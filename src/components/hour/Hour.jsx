@@ -6,7 +6,7 @@ import Event from '../event/Event';
 import { formatMins } from '../../../src/utils/dateUtils.js';
 import './hour.scss';
 
-const Hour = ({ dayStart, dataHour, hourEvents, deleteEvent }) => {
+const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
   const [hour, setHour] = useState(getHours(new Date()));
   const [minutes, setMinutes] = useState(getMinutes(new Date()));
 
@@ -40,7 +40,7 @@ const Hour = ({ dayStart, dataHour, hourEvents, deleteEvent }) => {
             key={id}
             id={id}
             title={title}
-            deleteEvent={deleteEvent}
+            onDeleteEvent={onDeleteEvent}
             //calculating event height = duration of event in minutes
             height={(dateTo.getTime() - dateFrom.getTime()) / (1000 * 60)}
             marginTop={dateFrom.getMinutes()}
@@ -56,7 +56,7 @@ Hour.propTypes = {
   dataHour: PropTypes.number.isRequired,
   dayStart: PropTypes.instanceOf(Date).isRequired,
   hourEvents: PropTypes.array.isRequired,
-  deleteEvent: PropTypes.func.isRequired,
+  onDeleteEvent: PropTypes.func.isRequired,
 };
 
 export default Hour;
