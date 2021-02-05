@@ -1,30 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { format, getMinutes, getHours } from 'date-fns';
+import React from 'react';
+import { format, getHours } from 'date-fns';
 import PropTypes from 'prop-types';
 
 import Event from '../event/Event';
 import { formatMins } from '../../../src/utils/dateUtils.js';
 import './hour.scss';
+import RedLine from './RedLine';
 
 const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
-  const date = new Date();
-  const [minutes, setMinutes] = useState(getMinutes(date));
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setMinutes(getMinutes(new Date()));
-    }, 60000);
-
-    return () => clearInterval(intervalId);
-  });
-
-  const isToday = format(dayStart, 'MM dd yyyy') === format(date, 'MM dd yyyy');
+  const isToday = format(dayStart, 'MM dd yyyy') === format(new Date(), 'MM dd yyyy');
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
-      {isToday && dataHour === getHours(date) && (
-        <div className="red-line" style={{ top: minutes }}></div>
-      )}
+      {isToday && dataHour === getHours(new Date()) && <RedLine />}
 
       {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
         const eventStart = `${dateFrom.getHours()}:${formatMins(dateFrom.getMinutes())}`;
