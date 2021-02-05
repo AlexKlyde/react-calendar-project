@@ -7,12 +7,12 @@ import { formatMins } from '../../../src/utils/dateUtils.js';
 import './hour.scss';
 
 const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
-  const [hour, setHour] = useState(getHours(new Date()));
-  const [minutes, setMinutes] = useState(getMinutes(new Date()));
+  const date = new Date();
+  const [hour, setHour] = useState(getHours(date));
+  const [minutes, setMinutes] = useState(getMinutes(date));
 
   useEffect(() => {
     if (minutes === 60) {
-      setMinutes(0);
       setHour(hour + 1);
     }
     const intervalId = setInterval(() => {
@@ -22,7 +22,7 @@ const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
     return () => clearInterval(intervalId);
   });
 
-  const isToday = format(dayStart, 'MM dd yyyy') === format(new Date(), 'MM dd yyyy');
+  const isToday = format(dayStart, 'MM dd yyyy') === format(date, 'MM dd yyyy');
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
