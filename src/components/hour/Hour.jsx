@@ -15,19 +15,19 @@ const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
       setMinutes(0);
       setHour(hour + 1);
     }
-    const interval = setInterval(() => {
+    const intervalId = setInterval(() => {
       setMinutes(minutes + 1);
     }, 60000);
 
-    return () => clearInterval(interval);
+    return () => clearInterval(intervalId);
   });
 
-  const dataDay = format(dayStart, 'MM dd yyyy') === format(new Date(), 'MM dd yyyy');
+  const isToday = format(dayStart, 'MM dd yyyy') === format(new Date(), 'MM dd yyyy');
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
-      {dataDay && dataHour === hour ? (
-        <div style={{ top: `${minutes}px` }} className="red-line"></div>
+      {isToday && dataHour === hour ? (
+        <div className="red-line" style={{ top: minutes }}></div>
       ) : null}
 
       {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
