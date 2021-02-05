@@ -1,12 +1,16 @@
 const baseUrl = "https://5ff9ad2b17386d0017b51ffd.mockapi.io/api/v1/calendar";
 
-export const createEvent = (events) =>
+export const createEvent = events =>
   fetch(baseUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify(events),
+  }).then(res => {
+    if (!res.ok) {
+      throw new Error('Failed to create task');
+    }
   });
 
 export const fetchEventsList = () =>
@@ -18,11 +22,11 @@ export const fetchEventsList = () =>
       return res.json();
     })
     .then((events) =>
-      events.map(({ _id, dateFrom, dateTo, ...task }) => ({
+      events.map(({ _id, dateFrom, dateTo, ...event }) => ({
         id: _id,
         dateFrom: new Date(dateFrom),
         dateTo: new Date(dateTo),
-        ...task,
+        ...event,
       }))
     );
 

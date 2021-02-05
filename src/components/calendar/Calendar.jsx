@@ -22,7 +22,9 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
   };
 
   const handleDeleteEvent = id => {
-    deleteEvent(id).then(() => fetchEvents());
+    deleteEvent(id)
+      .then(() => fetchEvents())
+      .catch(error => alert(error.message));
   };
 
   return (

@@ -8,15 +8,11 @@ import './hour.scss';
 
 const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
   const date = new Date();
-  const [hour, setHour] = useState(getHours(date));
   const [minutes, setMinutes] = useState(getMinutes(date));
 
   useEffect(() => {
-    if (minutes === 60) {
-      setHour(hour + 1);
-    }
     const intervalId = setInterval(() => {
-      setMinutes(minutes + 1);
+      setMinutes(getMinutes(new Date()));
     }, 60000);
 
     return () => clearInterval(intervalId);
@@ -26,9 +22,9 @@ const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
 
   return (
     <div className="calendar__time-slot" data-time={dataHour + 1}>
-      {isToday && dataHour === hour ? (
+      {isToday && dataHour === getHours(date) && (
         <div className="red-line" style={{ top: minutes }}></div>
-      ) : null}
+      )}
 
       {hourEvents.map(({ id, dateFrom, dateTo, title }) => {
         const eventStart = `${dateFrom.getHours()}:${formatMins(dateFrom.getMinutes())}`;
