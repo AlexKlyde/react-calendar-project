@@ -1,21 +1,21 @@
-# Getting Started with Calendar Project
-
-## Available Scripts
-
+# [Calendar Project](https://infallible-ardinghelli-ea4124.netlify.app)
+## Getting Started with Calendar Project
 In the project directory, you can run:
-
 ### `npm start`
-
 Runs the app in the development mode.\
-
 The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
 ### `npm run build`
-
 Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The tech stack is:
+* HTML5
+* CSS3
+* Flexbox
+* Sass (SCSS)
+* BEM methodology
+* JS + ES6
+* React
+* Webpack
+
+### Author: [Aleksei Kalaida](https://alekseikalaidacv.netlify.app/)
 
