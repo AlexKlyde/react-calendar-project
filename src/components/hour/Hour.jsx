@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Event from '../event/Event';
 import { formatMins } from '../../../src/utils/dateUtils.js';
 import './hour.scss';
-import RedLine from './RedLine';
+import RedLine from '../redline/RedLine';
 
 const Hour = ({ dayStart, dataHour, hourEvents, onDeleteEvent }) => {
   const isToday = format(dayStart, 'MM dd yyyy') === format(new Date(), 'MM dd yyyy');
