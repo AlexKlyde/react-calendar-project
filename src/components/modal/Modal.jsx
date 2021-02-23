@@ -7,24 +7,35 @@ import { getDateTime } from '../../utils/dateUtils';
 import './modal.scss';
 
 const Modal = ({ setModalVisible, fetchEvents }) => {
-  const [title, setTitle] = useState('');
-  const [date, setDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-  const [startTime, setStartTime] = useState(format(new Date(), 'HH:mm'));
-  const [endTime, setEndTime] = useState(format(addMinutes(new Date(), 15), 'HH:mm'));
-  const [description, setDescription] = useState('');
+  const [eventForm, setEventForm] = useState({
+    title: '',
+    date: format(new Date(), 'yyyy-MM-dd'),
+    startTime: format(new Date(), 'HH:mm'),
+    endTime: format(addMinutes(new Date(), 15), 'HH:mm'),
+    description: '',
+  });
+  
+  const { title, date, startTime, endTime, description } = eventForm;
 
   const handleSubmit = event => {
     event.preventDefault();
 
     const newEvent = {
-      title: title,
+      title,
       dateFrom: getDateTime(date, startTime),
       dateTo: getDateTime(date, endTime),
-      description: description,
+      description,
     };
 
     createEvent(newEvent).then(() => fetchEvents());
     setModalVisible(false);
+  };
+
+  const updateFormInput = e => {
+    setEventForm({
+      ...eventForm,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -40,7 +51,7 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
               name="title"
               placeholder="Title"
               className="event-form__field"
-              onChange={e => setTitle(e.target.value)}
+              onChange={updateFormInput}
             />
             <div className="event-form__time">
               <input
@@ -48,14 +59,14 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
                 name="date"
                 className="event-form__field"
                 value={date}
-                onChange={e => setDate(e.target.value)}
+                onChange={updateFormInput}
               />
               <input
                 type="time"
                 name="startTime"
                 className="event-form__field"
                 value={startTime}
-                onChange={e => setStartTime(e.target.value)}
+                onChange={updateFormInput}
                 required
               />
               <span>-</span>
@@ -64,7 +75,7 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
                 name="endTime"
                 className="event-form__field"
                 value={endTime}
-                onChange={e => setEndTime(e.target.value)}
+                onChange={updateFormInput}
                 required
               />
             </div>
@@ -72,7 +83,7 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
               name="description"
               placeholder="Description"
               className="event-form__field"
-              onChange={e => setDescription(e.target.value)}
+              onChange={updateFormInput}
             ></textarea>
             <button type="submit" className="event-form__submit-btn">
               Create
