@@ -5,7 +5,8 @@ import Hour from '../hour/Hour';
 
 import './day.scss';
 
-const Day = ({ dataDay, dayStart, dayEvents, onDeleteEvent }) => {
+const Day = ({ dayStart, dayEvents, onDeleteEvent }) => {
+  const dataDay = dayStart.getDate();
   const hours = Array(24)
     .fill()
     .map((val, index) => index);
@@ -31,7 +32,6 @@ const Day = ({ dataDay, dayStart, dayEvents, onDeleteEvent }) => {
 };
 
 Day.propTypes = {
-  dataDay: PropTypes.number.isRequired,
   dayStart: PropTypes.instanceOf(Date).isRequired,
   dayEvents: PropTypes.array.isRequired,
   onDeleteEvent: PropTypes.func.isRequired,

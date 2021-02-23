@@ -7,6 +7,7 @@ import Week from '../week/Week';
 import Sidebar from '../sidebar/Sidebar';
 import { fetchEventsList, deleteEvent } from '../../gateway/events';
 import './calendar.scss';
+import { format } from 'date-fns';
 
 const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
   const [events, setEvents] = useState([]);
@@ -17,7 +18,13 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
 
   const fetchEvents = () => {
     fetchEventsList()
-      .then(events => setEvents(events))
+      .then(events => {
+        const formattedWeekDates = weekDates.map(date => format(new Date(date), 'dd-MM-yyyy'));
+        const weeklyEvents = events.filter(event => {
+          return formattedWeekDates.includes(format(new Date(event.dateFrom), 'dd-MM-yyyy'));
+        })
+        return setEvents(weeklyEvents);
+      })
       .catch(error => alert(error.message));
   };
 

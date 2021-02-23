@@ -14,11 +14,11 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
     endTime: format(addMinutes(new Date(), 15), 'HH:mm'),
     description: '',
   });
-  
-  const { title, date, startTime, endTime, description } = eventForm;
 
   const handleSubmit = event => {
     event.preventDefault();
+
+    const { title, date, startTime, endTime, description } = eventForm;
 
     const newEvent = {
       title,
