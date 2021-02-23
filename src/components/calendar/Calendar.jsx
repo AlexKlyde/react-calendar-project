@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-import Modal from '../modal/Modal';
-import Navigation from './../navigation/Navigation';
-import Week from '../week/Week';
-import Sidebar from '../sidebar/Sidebar';
-import { fetchEventsList, deleteEvent } from '../../gateway/events';
-import './calendar.scss';
 import { format } from 'date-fns';
+
+import './calendar.scss';
+import { fetchEventsList, deleteEvent } from '../../gateway/events';
+import Navigation from './../navigation/Navigation';
+import Sidebar from '../sidebar/Sidebar';
+import Week from '../week/Week';
+import Modal from '../modal/Modal';
+
+
 
 const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
   const [events, setEvents] = useState([]);
