@@ -11,8 +11,6 @@ import Sidebar from '../sidebar/Sidebar';
 import Week from '../week/Week';
 import Modal from '../modal/Modal';
 
-
-
 const Calendar = () => {
   const [startDateWeek, setStartDateWeek] = useState(new Date());
   const [isModalVisible, setModalVisible] = useState(false);
