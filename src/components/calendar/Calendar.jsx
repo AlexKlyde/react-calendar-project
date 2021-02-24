@@ -1,18 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { format } from 'date-fns';
+import {format, subWeeks, addWeeks } from 'date-fns';
 
 import './calendar.scss';
 import { fetchEventsList, deleteEvent } from '../../gateway/events';
-import Navigation from './../navigation/Navigation';
+import { getWeekStartDate, generateWeekRange } from '../../utils/dateUtils.js'
+
+import Header from '../header/Header.jsx';
+import Navigation from '../navigation/Navigation';
 import Sidebar from '../sidebar/Sidebar';
 import Week from '../week/Week';
 import Modal from '../modal/Modal';
 
 
 
-const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
+const Calendar = () => {
+  const [startDateWeek, setStartDateWeek] = useState(new Date());
+  const [isModalVisible, setModalVisible] = useState(false);
   const [events, setEvents] = useState([]);
+
+  const handlePrevWeek = () => setStartDateWeek(subWeeks(startDateWeek, 1));
+  const hanldeNextWeek = () => setStartDateWeek(addWeeks(startDateWeek, 1));
+  const handleTodayWeek = () => setStartDateWeek(new Date());
+
+  const weekDates = generateWeekRange(getWeekStartDate(startDateWeek));
 
   useEffect(() => {
     fetchEvents();
@@ -38,6 +48,13 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
 
   return (
     <>
+      <Header
+        weekDates={weekDates}
+        setModalVisible={setModalVisible}
+        onPrevWeek={handlePrevWeek}
+        onNextWeek={hanldeNextWeek}
+        onTodayWeek={handleTodayWeek}
+      />
       <section className="calendar">
         <Navigation weekDates={weekDates} />
         <div className="calendar__body">
@@ -50,12 +67,6 @@ const Calendar = ({ weekDates, isModalVisible, setModalVisible }) => {
       {isModalVisible && <Modal setModalVisible={setModalVisible} fetchEvents={fetchEvents} />}
     </>
   );
-};
-
-Calendar.propTypes = {
-  weekDates: PropTypes.array.isRequired,
-  isModalVisible: PropTypes.bool,
-  setModalVisible: PropTypes.func.isRequired,
 };
 
 export default Calendar;
