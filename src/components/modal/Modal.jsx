@@ -14,7 +14,7 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
     endTime: format(addMinutes(new Date(), 15), 'HH:mm'),
     description: '',
   });
-  
+
   const { title, date, startTime, endTime, description } = eventForm;
 
   const handleSubmit = event => {
@@ -31,10 +31,12 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
     setModalVisible(false);
   };
 
-  const updateFormInput = e => {
+  const handleChange = e => {
+    const { name, value } = e.target;
+
     setEventForm({
       ...eventForm,
-      [e.target.name]: e.target.value,
+      [name]: value,
     });
   };
 
@@ -51,7 +53,7 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
               name="title"
               placeholder="Title"
               className="event-form__field"
-              onChange={updateFormInput}
+              onChange={handleChange}
             />
             <div className="event-form__time">
               <input
@@ -59,14 +61,14 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
                 name="date"
                 className="event-form__field"
                 value={date}
-                onChange={updateFormInput}
+                onChange={handleChange}
               />
               <input
                 type="time"
                 name="startTime"
                 className="event-form__field"
                 value={startTime}
-                onChange={updateFormInput}
+                onChange={handleChange}
                 required
               />
               <span>-</span>
@@ -75,7 +77,7 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
                 name="endTime"
                 className="event-form__field"
                 value={endTime}
-                onChange={updateFormInput}
+                onChange={handleChange}
                 required
               />
             </div>
@@ -83,8 +85,9 @@ const Modal = ({ setModalVisible, fetchEvents }) => {
               name="description"
               placeholder="Description"
               className="event-form__field"
-              onChange={updateFormInput}
-            ></textarea>
+              value={description}
+              onChange={handleChange}
+            />
             <button type="submit" className="event-form__submit-btn">
               Create
             </button>

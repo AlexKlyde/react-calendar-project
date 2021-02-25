@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {format, subWeeks, addWeeks } from 'date-fns';
+import { format, subWeeks, addWeeks } from 'date-fns';
 
 import './calendar.scss';
 import { fetchEventsList, deleteEvent } from '../../gateway/events';
-import { getWeekStartDate, generateWeekRange } from '../../utils/dateUtils.js'
+import { getWeekStartDate, generateWeekRange } from '../../utils/dateUtils.js';
 
 import Header from '../header/Header.jsx';
 import Navigation from '../navigation/Navigation';
@@ -30,9 +30,9 @@ const Calendar = () => {
     fetchEventsList()
       .then(events => {
         const formattedWeekDates = weekDates.map(date => format(new Date(date), 'dd-MM-yyyy'));
-        const weeklyEvents = events.filter(event => {
-          return formattedWeekDates.includes(format(new Date(event.dateFrom), 'dd-MM-yyyy'));
-        })
+        const weeklyEvents = events.filter(event =>
+          formattedWeekDates.includes(format(new Date(event.dateFrom), 'dd-MM-yyyy')),
+        );
         return setEvents(weeklyEvents);
       })
       .catch(error => alert(error.message));
