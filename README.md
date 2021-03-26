@@ -1,6 +1,7 @@
 # [Calendar Project](https://infallible-ardinghelli-ea4124.netlify.app)
 ## Getting Started with Calendar Project
 In the project directory, you can run:
+### `npm i`
 ### `npm start`
 Runs the app in the development mode.\
 The page will reload if you make edits.\
@@ -17,5 +18,5 @@ The tech stack is:
 * React
 * Webpack
 
-### Author: [Aleksei Kalaida](https://alekseikalaidacv.netlify.app/)
+### Author: [Aleksei Kalaida](https://www.linkedin.com/in/aleksei-kalaida-28444092/)
 
